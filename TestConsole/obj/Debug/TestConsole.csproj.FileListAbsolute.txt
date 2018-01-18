@@ -1,0 +1,6 @@
+D:\Projects\HeysoHomeWeb\TestConsole\bin\Debug\TestConsole.exe.config
+D:\Projects\HeysoHomeWeb\TestConsole\bin\Debug\TestConsole.exe
+D:\Projects\HeysoHomeWeb\TestConsole\bin\Debug\TestConsole.pdb
+D:\Projects\HeysoHomeWeb\TestConsole\obj\Debug\TestConsole.csproj.CoreCompileInputs.cache
+D:\Projects\HeysoHomeWeb\TestConsole\obj\Debug\TestConsole.exe
+D:\Projects\HeysoHomeWeb\TestConsole\obj\Debug\TestConsole.pdb

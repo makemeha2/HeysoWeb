@@ -1,0 +1,8 @@
+version: '3'
+
+services:
+  heysohomeweb:
+    image: heysohomeweb
+    build:
+      context: .\HeysoHomeWeb
+      dockerfile: Dockerfile

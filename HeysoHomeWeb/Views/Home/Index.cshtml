@@ -1,0 +1,64 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<link rel="stylesheet" href="/Content/home.css">
+
+<style type="text/css">
+    /*.clearfix {
+        padding: 16px 30px;
+        text-align: center;
+    }
+
+        .clearfix h3 {
+            font-size: 14px;
+            font-weight: bold;
+            margin-top: 0;
+        }
+
+        .clearfix p {
+            font-size: 12px;
+            color: #7b7d7d;
+            margin: 0;
+        }*/
+</style>
+
+<div class="container gallery-container">
+    <h1>Heyso Private Homepage</h1>
+    <p class="page-description text-center">웹개발이 가물가물한 개발자의 사이트</p>
+
+    <div class="row previews">
+        <div class="col-sm-6 col-md-4">
+            <a href="/QnA/Index" title="Q&A 링크">
+                <img src="/images/QnA.png" class="img-thumbnail" alt="Q&A" title="Q&A" />
+            </a>
+            <div class="col clearfix">
+                <h3>Q&A</h3>
+                <p>매일 새로운 한가지 질문에 답하는 곳입니다.<br /><br /><br /></p>
+            </div>
+        </div>
+        @for (var i = 0; i < 6; i++)
+        {
+        <div class="col-sm-6 col-md-4 pb-template" style="margin-bottom: 30px;">
+            <a href="/Theme-Squad/index.html" title="Squad Theme" onclick="return false;">
+                <img src="/images/noImage.png" class="img-thumbnail" alt="No Image">
+            </a>
+            <div class="col clearfix">
+                <h3>준비중</h3>
+                <p>준비중 입니다.<br /><br /><br /></p>
+            </div>
+        </div>
+        }
+
+        <div class="col-md-12" style="margin-bottom:30px;">
+        </div>
+
+        <div class="hidden-sm hidden-xs" style="clear:both; width:100%; height: 30px;"></div>
+
+    </div>
+
+    <hr />
+    <footer>
+        <p>&copy; @DateTime.Now.Year - 내 ASP.NET 응용 프로그램</p>
+    </footer>
+</div>
