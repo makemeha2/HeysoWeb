@@ -168,6 +168,8 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WebCommon\ResultModel.cs" />
+    <Compile Include="WebCommon\UserAuth\IdentityExtensions.cs" />
+    <Compile Include="WebCommon\UserAuth\UserIdentity.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\baguetteBox.min.css" />
@@ -176,17 +178,22 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\home.css" />
+    <Content Include="Content\landing-page.css" />
     <Content Include="Content\login.css" />
     <EmbeddedResource Include="dbContextConfig.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
+    <Content Include="Content\simple-line-icons\css\simple-line-icons.css" />
+    <Content Include="Content\simple-line-icons\fonts\Simple-Line-Icons.svg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Images\benches.jpg" />
+    <Content Include="Images\bg-masthead.jpg" />
     <Content Include="Images\bridge.jpg" />
     <Content Include="Images\coast.jpg" />
+    <Content Include="Images\loginBack1.jpg" />
     <Content Include="Images\noImage.png" />
     <Content Include="Images\park.jpg" />
     <Content Include="Images\QnA.png" />
@@ -198,6 +205,10 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\simple-line-icons\fonts\Simple-Line-Icons.eot" />
+    <Content Include="Content\simple-line-icons\fonts\Simple-Line-Icons.ttf" />
+    <Content Include="Content\simple-line-icons\fonts\Simple-Line-Icons.woff" />
+    <Content Include="Content\simple-line-icons\fonts\Simple-Line-Icons.woff2" />
     <None Include="Dockerfile" />
     <None Include=".dockerignore">
       <DependentUpon>Dockerfile</DependentUpon>
@@ -225,6 +236,7 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\login.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\popper-utils.js" />
     <Content Include="Scripts\popper-utils.min.js" />

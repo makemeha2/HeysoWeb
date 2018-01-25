@@ -1,10 +1,12 @@
 ﻿using DataAccessLayer.Models;
 using DataAccessLayer.Repositories;
+using Spring.Context.Support;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 
 namespace HeysoHomeWeb.Controllers
 {
@@ -35,9 +37,16 @@ namespace HeysoHomeWeb.Controllers
             paramQnA.DD = dd;
             paramQnA.UserId = userId;
 
+            GetContextObjects();
 
             return _qnaRepository.GetQnAData(paramQnA);
 
+        }
+
+        private void GetContextObjects()
+        {
+            var appContext = (XmlApplicationContext)HttpContext.Application["appContext"];
+            _qnaRepository = appContext.GetObject<QnARepository>("qnARepository");
         }
     }
 }

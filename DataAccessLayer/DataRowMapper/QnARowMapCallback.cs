@@ -21,9 +21,9 @@ namespace DataAccessLayer.DataRowMapper
                 MM = reader["MM"].ToString(),
                 DD = reader["DD"].ToString(),
                 Question = reader["Question"].ToString(),
-                Answer = reader["Answer"] == DBNull.Value ? string.Empty : reader["Answer"].ToString(),
-                UserId = reader["UserId"] == DBNull.Value ? string.Empty : reader["UserId"].ToString(),
-                UpdateDate = reader["UpdateDate"] == DBNull.Value ? DateTime.MinValue : Convert.ToDateTime(reader["UPDATE_DT"])
+                Answer = reader["Answer"] == null ? string.Empty : reader["Answer"].ToString(),
+                UserId = reader["UserID"] == null ? string.Empty : reader["UserID"].ToString(),
+                UpdateDate = reader["UpdateDate"] == null ? DateTime.MinValue : Convert.ToDateTime(reader["UpdateDate"])
             };
         }
     }

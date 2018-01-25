@@ -2,30 +2,41 @@
     ViewBag.Title = "Login";
 }
 
-<link rel="stylesheet" href="/Content/login.css">
+<link rel='stylesheet prefetch' href='https://fonts.googleapis.com/css?family=Open+Sans:400,300'>
+<link rel='stylesheet prefetch' href='https://fonts.googleapis.com/icon?family=Material+Icons'>
 
+<link rel="stylesheet" href="/Content/login.css" />
+
+@*<script type="text/javascript" src="/Scripts/jquery.validate.js"></script>*@
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-validation@1.17.0/dist/jquery.validate.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-validation@1.17.0/dist/additional-methods.js"></script>
 <script type="text/javascript">
+
     $(document).ready(function () {
+
         $.validator.addMethod("strongCheck", function (value) {
             return /^[A-Za-z0-9\d=!\-@@._*]*$/.test(value) // consists of only these
                 && /[A-Z]/.test(value) // has a lowercase letter
                 && /\d/.test(value) // has a digit
         });
-    
+
         $("#login-form").validate({
             rules: {
-                txtLoginEmail: {
+                Email: {
                     required: true,
                     email: true,
                 },
-                txtLoginPassword: {
+                Password: {
                     required: true,
                     minlength: 5,
                 }
             },
             messages: {
-                txtLoginEmail: "Please enter your correct Email",
-                txtLoginPassword: {
+                Email: {
+                    required: "Please enter your correct Email",
+                    email: "Please enter your correct Email"
+                },
+                Password: {
                     required: "Please provide a password",
                     minlength: "Your password must be at least 5 characters long"
                 }
@@ -35,29 +46,27 @@
                     url: location.href,
                     type: "POST",
                     data: $(form).serialize(),
-                    success: function (response) {
-                        if (response.ResultCode == "1") {
-                            if (response.Message != "")
-                                location.href = response.Message;
-                            else
-                                location.href = "/";
-                        }
-                        else {
-                            alert("[" + response.ResultCode + "] " + response.Message);
-                        }
-                    },
-                    error: function (response) {
-                        alert("[" + response.ResultCode + "] " + response.Message);
-                        location.href = location.href;
+                    dataType: "json",
+                }).done(function (response) {
+                    if (response.ResultCode == "1") {
+                        if (response.Message != "")
+                            location.href = response.Message;
+                        else
+                            location.href = "/";
                     }
+                    else {
+                        alert("[" + response.ResultCode + "] " + response.Message);
+                    }
+                }).fail(function (response) {
+                    alert("[" + response.ResultCode + "] " + response.Message);
+                    location.href = location.href;
                 });
-                return false;
             }
         });
 
         $("#register-form").validate({
             rules: {
-                txtSignUpEmail: {
+                Email: {
                     required: true,
                     email: true,
                     remote: {
@@ -70,36 +79,36 @@
                         }
                     }
                 },
-                txtSignUpNickName: {
+                NickName: {
                     required: true,
                     minlength: 2,
                 },
-                txtSignUpPassword: {
+                Password: {
                     required: true,
                     minlength: 5,
-                    strongCheck : true
+                    strongCheck: true
                 },
-                txtSignUpConfirmPassword: {
+                ConfirmPassword: {
                     required: true,
                     equalTo: "#txtSignUpPassword"
                 }
             },
             messages: {
-                txtSignUpEmail: {
-                    required: "Please enter your correct Email",
-                    email: "Please enter your correct Email"
+                Email: {
+                    required: "Please enter your correct Email1",
+                    email: "Please enter your correct Email1"
                     //remote: ""
                 },
-                txtSignUpNickName: {
+                NickName: {
                     required: "Please provide a password",
-                    minlength: "Your password must be at least 2 characters long"
+                    minlength: "Your password must be at least 5 characters long"
                 },
-                txtSignUpPassword: {
+                Password: {
                     required: "Please provide a password",
                     minlength: "Your password must be at least 8 characters long",
-                    strongCheck : "최소한 1자 이상의 대문자와 1개의 숫자가 필요합니다."
+                    strongCheck: "최소한 1자 이상의 대문자와 1개의 숫자가 필요합니다."
                 },
-                txtSignUpConfirmPassword: {
+                ConfirmPassword: {
 
                 }
             },
@@ -127,110 +136,78 @@
             }
         });
 
-        
+
     });
 
 </script>
 
-<div class="container body-content">
-    <div class="row">
-        <div class="col-md-6 col-md-offset-3">
-            <div class="panel panel-login">
-                <div class="panel-heading">
-                    <div class="row">
-                        <div class="col-xs-6">
-                            <a href="#" class="active" id="login-form-link">Login</a>
-                        </div>
-                        <div class="col-xs-6">
-                            <a href="#" id="register-form-link">Register</a>
-                        </div>
+
+<div class="cotn_principal">
+    <div class="cont_centrar">
+        <div class="cont_login">
+            <div class="cont_info_log_sign_up">
+                <div class="col_md_login">
+                    <div class="cont_ba_opcitiy">
+                        <h2>LOGIN</h2>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                        <button class="btn_login" onclick="cambiar_login()">LOGIN</button>
                     </div>
-                    <hr>
                 </div>
-                <div class="panel-body">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <form id="login-form" action="/User/Login" method="post" role="form" style="display: block;">
-                                @Html.AntiForgeryToken()
-                                <div class="form-group">
-                                    <input type="email" name="Email" id="txtLoginEmail" tabindex="1" class="form-control" placeholder="E-mail" value="">
-                                </div>
-                                <div class="form-group">
-                                    <input type="password" name="Password" id="txtLoginPassword" tabindex="2" class="form-control" maxlength="50" placeholder="Password">
-                                </div>
-                                <div class="form-group text-center">
-                                    <input type="checkbox" tabindex="3" class="" name="Remember" id="txtRemember">
-                                    <label for="remember"> Remember Me</label>
-                                </div>
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-sm-6 col-sm-offset-3">
-                                            <input type="submit" name="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-login" value="Log In">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-lg-12">
-                                            <div class="text-center">
-                                                <a href="#" tabindex="5" class="forgot-password" onclick="alert('어쩌라고.'); return false;">Forgot Password?</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
-                            <form id="register-form" action="User/Register" method="post" role="form" style="display: none;">
-                                <div class="form-group">
-                                    <input type="email" name="Email" id="txtSignUpEmail" tabindex="1" class="form-control" maxlength="50" placeholder="Email Address" value="makemeha3@gmail.com">
-                                </div>
-                                <div class="form-group">
-                                    <input type="text" name="NickName" id="txtSignUpNickName" tabindex="1" class="form-control" maxlength="50" placeholder="NickName" value="홍길동">
-                                </div>
-                                <div class="form-group">
-                                    <input type="password" name="Password" id="txtSignUpPassword" tabindex="2" class="form-control" maxlength="50" placeholder="Password" value="Dusqhd1djr!">
-                                </div>
-                                <div class="form-group">
-                                    <input type="password" name="ConfirmPassword" id="txtSignUpConfirmPassword" tabindex="2" class="form-control" maxlength="50" placeholder="Confirm Password" value="Dusqhd1djr!">
-                                </div>
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-sm-6 col-sm-offset-3">
-                                            <input type="submit" name="register-submit" id="register-submit" tabindex="4" class="form-control btn btn-register" value="Register Now">
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
+                <div class="col_md_sign_up">
+                    <div class="cont_ba_opcitiy">
+                        <h2>SIGN UP</h2>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                        <button class="btn_sign_up" onclick="cambiar_sign_up()">SIGN UP</button>
                     </div>
                 </div>
             </div>
+
+            <div class="cont_back_info">
+                <div class="cont_img_back_grey">
+                    <img src="/Images/loginBack1.jpg" alt="" />
+                </div>
+
+            </div>
+            <div class="cont_forms">
+                <div class="cont_img_back_">
+                    <img src="/Images/loginBack1.jpg" alt="" />
+                </div>
+                <div class="cont_form_login">
+                    <a href="#" onclick="ocultar_login_sign_up()"><i class="material-icons">&#xE5C4;</i></a>
+                    <form id="login-form" name="login-form" action="/User/Login" method="post">
+                        @Html.AntiForgeryToken()
+                        <h2>LOGIN</h2>
+                        <input type="email" name="Email" id="txtLoginEmail" tabindex="1" placeholder="E-mail" value="" />
+                        <input type="password" name="Password" id="txtLoginPassword" tabindex="2" maxlength="50" placeholder="Password" />
+                        <div style="margin-right:120px; margin-top:10px">
+                            <input type="checkbox" tabindex="3" class="" name="Remember" id="txtRemember" style="height:20px;width:20px;background-color: #eee;">&nbsp;
+                            <label for="txtRemember" style="font-weight:bold; color:#757575"> Remember Me</label>
+                        </div>
+                        <button class="btn_login">LOGIN</button>
+                    </form>
+                </div>
+
+                <div class="cont_form_sign_up">
+                    <a href="#" onclick="ocultar_login_sign_up()"><i class="material-icons">&#xE5C4;</i></a>
+                    <form id="register-form" action="User/Register" method="post">
+                        @Html.AntiForgeryToken()
+                        <h2>SIGN UP</h2>
+                        <input type="email" name="Email" id="txtSignUpEmail" tabindex="1" class="form-control" maxlength="50" placeholder="Email Address" value="makemeha3@gmail.com">
+                        <input type="text" name="NickName" id="txtSignUpNickName" tabindex="1" class="form-control" maxlength="50" placeholder="NickName" value="홍길동">
+                        <input type="password" name="Password" id="txtSignUpPassword" tabindex="2" class="form-control" maxlength="50" placeholder="Password" value="Dusqhd1djr!">
+                        <input type="password" name="ConfirmPassword" id="txtSignUpConfirmPassword" tabindex="2" class="form-control" maxlength="50" placeholder="Confirm Password" value="Dusqhd1djr!">
+                        <button class="btn_sign_up">SIGN UP</button>
+                    </form>
+                </div>
+            </div>
+
         </div>
     </div>
-    <hr />
-    <footer>
-        <p>&copy; @DateTime.Now.Year - 내 ASP.NET 응용 프로그램</p>
-    </footer>
 </div>
 
-    <script type="text/javascript">
-        $(function () {
 
-            $('#login-form-link').click(function (e) {
-                $("#login-form").delay(100).fadeIn(100);
-                $("#register-form").fadeOut(100);
-                $('#register-form-link').removeClass('active');
-                $(this).addClass('active');
-                e.preventDefault();
-            });
-            $('#register-form-link').click(function (e) {
-                $("#register-form").delay(100).fadeIn(100);
-                $("#login-form").fadeOut(100);
-                $('#login-form-link').removeClass('active');
-                $(this).addClass('active');
-                e.preventDefault();
-            });
+<script src="/Scripts/login.js"></script>
+<script type="text/javascript">
 
-        });
-
-    </script>
+</script>
 

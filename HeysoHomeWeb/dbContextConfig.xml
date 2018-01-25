@@ -15,5 +15,9 @@
   <object id="userRepository" type="DataAccessLayer.Repositories.UserRepository, DataAccessLayer">
     <property name="AdoTemplate" ref="adoTemplate"/>
   </object>
+
+  <object id="qnARepository" type="DataAccessLayer.Repositories.QnARepository, DataAccessLayer">
+    <property name="AdoTemplate" ref="adoTemplate"/>
+  </object>
   
 </objects>

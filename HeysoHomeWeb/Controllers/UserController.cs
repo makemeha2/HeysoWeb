@@ -1,6 +1,8 @@
 ﻿using DataAccessLayer.Models;
 using DataAccessLayer.Repositories;
 using HeysoHomeWeb.WebCommon;
+using HeysoHomeWeb.WebCommon.UserAuth;
+using Newtonsoft.Json;
 using Spring.Context.Support;
 using System;
 using System.Collections.Generic;
@@ -45,7 +47,24 @@ namespace HeysoHomeWeb.Controllers
 
                 if (loginUser != null)
                 {
-                    FormsAuthentication.SetAuthCookie(loginUser.NickName, remember);
+                    var userIdentity = new UserIdentity();
+                    userIdentity.UserId = loginUser.UserId;
+                    userIdentity.Username = loginUser.NickName;
+
+                    var userData = JsonConvert.SerializeObject(userIdentity);
+                    FormsAuthenticationTicket authTicket = new FormsAuthenticationTicket(1, loginUser.UserId, DateTime.Now, DateTime.Now.AddMinutes(30), remember, userData);
+                    string encTicket = FormsAuthentication.Encrypt(authTicket);
+
+                    var cookie = new HttpCookie(FormsAuthentication.FormsCookieName, encTicket)
+                    {
+                        Expires = authTicket.Expiration,
+                        Path = FormsAuthentication.FormsCookiePath
+                    };
+
+                    if(System.Web.HttpContext.Current != null)
+                    {
+                        System.Web.HttpContext.Current.Response.Cookies.Add(cookie);
+                    }
 
                     var redirectUrl = !string.IsNullOrWhiteSpace(ReturnUrl) ? ReturnUrl : string.Empty;
                     return Json(new ResultModel("1", redirectUrl));
